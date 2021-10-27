@@ -42,7 +42,6 @@ class ViewController: UIViewController {
             if let data = data {
                 do {
                     let result = try JSONDecoder().decode(APIResult.self, from: data)
-                    print(result.businesses[0])
                 }
                 catch {
                     print(error.localizedDescription)
