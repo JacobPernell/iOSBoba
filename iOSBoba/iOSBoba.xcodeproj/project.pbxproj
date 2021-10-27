@@ -15,6 +15,7 @@
 		A529DBE12715660700C44EB9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A529DBDF2715660700C44EB9 /* LaunchScreen.storyboard */; };
 		A529DBE9271B715400C44EB9 /* PrivateKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = A529DBE8271B715400C44EB9 /* PrivateKeys.swift */; };
 		A529DBEB271B87DA00C44EB9 /* APIResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = A529DBEA271B87DA00C44EB9 /* APIResult.swift */; };
+		A529DBF02729DB2B00C44EB9 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A529DBEF2729DB2B00C44EB9 /* MapKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		A529DBE22715660700C44EB9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A529DBE8271B715400C44EB9 /* PrivateKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateKeys.swift; sourceTree = "<group>"; };
 		A529DBEA271B87DA00C44EB9 /* APIResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResult.swift; sourceTree = "<group>"; };
+		A529DBEF2729DB2B00C44EB9 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +37,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A529DBF02729DB2B00C44EB9 /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -46,6 +49,7 @@
 			children = (
 				A529DBD32715660600C44EB9 /* iOSBoba */,
 				A529DBD22715660600C44EB9 /* Products */,
+				A529DBEE2729DB2B00C44EB9 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -71,6 +75,14 @@
 				A529DBE22715660700C44EB9 /* Info.plist */,
 			);
 			path = iOSBoba;
+			sourceTree = "<group>";
+		};
+		A529DBEE2729DB2B00C44EB9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A529DBEF2729DB2B00C44EB9 /* MapKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
