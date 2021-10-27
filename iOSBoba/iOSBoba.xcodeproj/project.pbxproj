@@ -13,6 +13,8 @@
 		A529DBDC2715660600C44EB9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A529DBDA2715660600C44EB9 /* Main.storyboard */; };
 		A529DBDE2715660700C44EB9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A529DBDD2715660700C44EB9 /* Assets.xcassets */; };
 		A529DBE12715660700C44EB9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A529DBDF2715660700C44EB9 /* LaunchScreen.storyboard */; };
+		A529DBE9271B715400C44EB9 /* PrivateKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = A529DBE8271B715400C44EB9 /* PrivateKeys.swift */; };
+		A529DBEB271B87DA00C44EB9 /* APIResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = A529DBEA271B87DA00C44EB9 /* APIResult.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		A529DBDD2715660700C44EB9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A529DBE02715660700C44EB9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A529DBE22715660700C44EB9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A529DBE8271B715400C44EB9 /* PrivateKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateKeys.swift; sourceTree = "<group>"; };
+		A529DBEA271B87DA00C44EB9 /* APIResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResult.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +63,8 @@
 				A529DBD42715660600C44EB9 /* AppDelegate.swift */,
 				A529DBD62715660600C44EB9 /* SceneDelegate.swift */,
 				A529DBD82715660600C44EB9 /* ViewController.swift */,
+				A529DBEA271B87DA00C44EB9 /* APIResult.swift */,
+				A529DBE8271B715400C44EB9 /* PrivateKeys.swift */,
 				A529DBDA2715660600C44EB9 /* Main.storyboard */,
 				A529DBDD2715660700C44EB9 /* Assets.xcassets */,
 				A529DBDF2715660700C44EB9 /* LaunchScreen.storyboard */,
@@ -141,6 +147,8 @@
 				A529DBD92715660600C44EB9 /* ViewController.swift in Sources */,
 				A529DBD52715660600C44EB9 /* AppDelegate.swift in Sources */,
 				A529DBD72715660600C44EB9 /* SceneDelegate.swift in Sources */,
+				A529DBEB271B87DA00C44EB9 /* APIResult.swift in Sources */,
+				A529DBE9271B715400C44EB9 /* PrivateKeys.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
