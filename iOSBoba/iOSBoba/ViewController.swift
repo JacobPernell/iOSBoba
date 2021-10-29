@@ -41,6 +41,10 @@ class ViewController: UIViewController {
             mapView.center = view.center
             
             view.addSubview(mapView)
+        
+            let annotation = MKPointAnnotation()
+            annotation.coordinate = CLLocationCoordinate2D(latitude: 37, longitude: 122)
+            mapView.addAnnotation(annotation)
         }
     
     // MARK: - Networking
@@ -65,6 +69,9 @@ class ViewController: UIViewController {
             if let data = data {
                 do {
                     let result = try JSONDecoder().decode(APIResult.self, from: data)
+//                    self.annotation.coordinate = CLLocationCoordinate2D(latitude: result.businesses[0].coordinates!.latitude, longitude: result.businesses[0].coordinates!.longitude)
+//                    self.annotation.coordinate = CLLocationCoordinate2D(latitude: 37, longitude: 122)
+                    self.yelpResults = [result]
                 }
                 catch {
                     print(error.localizedDescription)
