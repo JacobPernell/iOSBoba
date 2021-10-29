@@ -7,45 +7,68 @@
 
 import UIKit
 import MapKit
+import CoreLocation
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, MKMapViewDelegate {
     
     var yelpResults = [APIResult]()
+    let mapView = MKMapView()
+    let coordinate = CLLocationCoordinate2D(latitude: 37, longitude: 122)
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         title = "iOS Boba v1"
         
-        getData(from: YELP_URL, queryParams: ["location": "NYC", "term": "boba"])
+        view.addSubview(mapView)
+        mapView.frame = view.bounds
+        mapView.setRegion(MKCoordinateRegion(center: coordinate, span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)), animated: false)
         
+        mapView.delegate = self
+        
+        let annotation = MKPointAnnotation()
+        annotation.title = "SF"
+        annotation.coordinate = CLLocationCoordinate2D(latitude: 37.3541, longitude: 121.9552)
+        mapView.addAnnotation(annotation)
+        
+        getData(from: YELP_URL, queryParams: ["location": "NYC", "term": "boba"])
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-            super.viewWillAppear(animated)
-            
-            let mapView = MKMapView()
-            
-            let leftMargin:CGFloat = 10
-            let topMargin:CGFloat = 60
-            let mapWidth:CGFloat = view.frame.size.width-20
-            let mapHeight:CGFloat = 300
-            
-            mapView.frame = CGRect(x: leftMargin, y: topMargin, width: mapWidth, height: mapHeight)
-            
-            mapView.mapType = MKMapType.standard
-            mapView.isZoomEnabled = true
-            mapView.isScrollEnabled = true
-            
-            // Or, if needed, we can position map in the center of the view
-            mapView.center = view.center
-            
-            view.addSubview(mapView)
-        
-            let annotation = MKPointAnnotation()
-            annotation.coordinate = CLLocationCoordinate2D(latitude: 37, longitude: 122)
-            mapView.addAnnotation(annotation)
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//
+//        let leftMargin:CGFloat = 10
+//        let topMargin:CGFloat = 60
+//        let mapWidth:CGFloat = view.frame.size.width-20
+//        let mapHeight:CGFloat = 300
+//
+//        mapView.frame = CGRect(x: leftMargin, y: topMargin, width: mapWidth, height: mapHeight)
+//
+//        mapView.mapType = MKMapType.standard
+//        mapView.isZoomEnabled = true
+//        mapView.isScrollEnabled = true
+//
+//        // Or, if needed, we can position map in the center of the view
+//        mapView.center = view.center
+//
+//        view.addSubview(mapView)
+//    }
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        guard annotation is MKPointAnnotation else { return nil }
+
+        let identifier = "Annotation"
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+
+        if annotationView == nil {
+            annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+            annotationView!.canShowCallout = true
+        } else {
+            annotationView!.annotation = annotation
         }
+
+        return annotationView
+    }
     
     // MARK: - Networking
     func getData(from url: String, queryParams: [String:String]) {
