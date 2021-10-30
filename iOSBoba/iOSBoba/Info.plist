@@ -22,6 +22,10 @@
 		<string>MKDirectionsModeSubway</string>
 		<string>MKDirectionsModeTrain</string>
 	</array>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>We want to help you find your nearest boba shop!</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>We want to help you find your nearest boba shop!</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

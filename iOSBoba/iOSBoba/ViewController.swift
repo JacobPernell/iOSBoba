@@ -9,29 +9,68 @@ import UIKit
 import MapKit
 import CoreLocation
 
-class ViewController: UIViewController, MKMapViewDelegate {
+class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     
     var yelpResults = [APIResult]()
     let mapView = MKMapView()
-    let coordinate = CLLocationCoordinate2D(latitude: 37.3541, longitude: -121.9552)
+    let annotation = MKPointAnnotation()
+    var locationManager = CLLocationManager()
+    var userCoordinates = CLLocationCoordinate2D()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         title = "iOS Boba v1"
         
-        view.addSubview(mapView)
-        mapView.frame = view.bounds
-        mapView.setRegion(MKCoordinateRegion(center: coordinate, span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)), animated: false)
-        
+        locationManager.delegate = self
         mapView.delegate = self
         
-        let annotation = MKPointAnnotation()
-        annotation.title = "SF"
-        annotation.coordinate = coordinate
-        mapView.addAnnotation(annotation)
+        locationManager.requestWhenInUseAuthorization()
+        
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.startUpdatingLocation()
+        }
+        
+        view.addSubview(mapView)
+        mapView.frame = view.bounds
         
         getData(from: YELP_URL, queryParams: ["location": "NYC", "term": "boba"])
+    }
+    
+    // MARK: - User Location
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.first {
+            let latitude = location.coordinate.latitude
+            let longitude = location.coordinate.longitude
+            userCoordinates = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+            mapView.setRegion(MKCoordinateRegion(center: userCoordinates, span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)), animated: false)
+            updateAnnotation()
+            print("long: \(longitude)")
+            print("lat: \(latitude)")
+        }
+    }
+    
+    func updateAnnotation() {
+        self.annotation.title = "SF"
+        self.annotation.coordinate = userCoordinates
+        mapView.addAnnotation(self.annotation)
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("Location error: \(error)")
+    }
+    
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        switch manager.authorizationStatus {
+        case .authorizedWhenInUse:
+            print("LOC AUTH: when in use")
+            break
+        case .authorizedAlways:
+            print("LOC AUTH: always")
+            break
+        default:
+            print("default switch")
+        }
     }
     
     // MARK: - Map
@@ -69,7 +108,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
         request.setValue("Bearer \(YELP_API_KEY)", forHTTPHeaderField: "Authorization")
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            print(request)
+//            print("API request: \(request)")
             if let data = data {
                 do {
                     let result = try JSONDecoder().decode(APIResult.self, from: data)
