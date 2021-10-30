@@ -13,7 +13,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
     
     var yelpResults = [APIResult]()
     let mapView = MKMapView()
-    let coordinate = CLLocationCoordinate2D(latitude: 37, longitude: 122)
+    let coordinate = CLLocationCoordinate2D(latitude: 37.3541, longitude: -121.9552)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,32 +28,13 @@ class ViewController: UIViewController, MKMapViewDelegate {
         
         let annotation = MKPointAnnotation()
         annotation.title = "SF"
-        annotation.coordinate = CLLocationCoordinate2D(latitude: 37.3541, longitude: 121.9552)
+        annotation.coordinate = coordinate
         mapView.addAnnotation(annotation)
         
         getData(from: YELP_URL, queryParams: ["location": "NYC", "term": "boba"])
     }
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//
-//        let leftMargin:CGFloat = 10
-//        let topMargin:CGFloat = 60
-//        let mapWidth:CGFloat = view.frame.size.width-20
-//        let mapHeight:CGFloat = 300
-//
-//        mapView.frame = CGRect(x: leftMargin, y: topMargin, width: mapWidth, height: mapHeight)
-//
-//        mapView.mapType = MKMapType.standard
-//        mapView.isZoomEnabled = true
-//        mapView.isScrollEnabled = true
-//
-//        // Or, if needed, we can position map in the center of the view
-//        mapView.center = view.center
-//
-//        view.addSubview(mapView)
-//    }
-    
+    // MARK: - Map
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         guard annotation is MKPointAnnotation else { return nil }
 
