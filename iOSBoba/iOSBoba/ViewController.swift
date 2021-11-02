@@ -34,7 +34,9 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         view.addSubview(mapView)
         mapView.frame = view.bounds
         
-        getData(from: YELP_URL, queryParams: ["location": "NYC", "term": "boba"])
+//        getData(from: YELP_URL, queryParams: ["location": "NYC", "term": "boba"])
+        
+        
     }
     
     // MARK: - User Location
@@ -42,7 +44,9 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         if let location = locations.first {
             let latitude = location.coordinate.latitude
             let longitude = location.coordinate.longitude
-            userCoordinates = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+            if !yelpResults.isEmpty { // TODO: - Try to update the map only after the api call happens
+                userCoordinates = CLLocationCoordinate2D(latitude: yelpResults[0].businesses[0].coordinates!.latitude, longitude: yelpResults[0].businesses[0].coordinates!.longitude)
+            }
             mapView.setRegion(MKCoordinateRegion(center: userCoordinates, span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)), animated: false)
             updateAnnotation()
             print("long: \(longitude)")
@@ -51,7 +55,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     }
     
     func updateAnnotation() {
-        self.annotation.title = "SF"
+        self.annotation.title = "lat: \(userCoordinates.latitude) // long: \(userCoordinates.longitude)"
         self.annotation.coordinate = userCoordinates
         mapView.addAnnotation(self.annotation)
     }
@@ -108,12 +112,11 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         request.setValue("Bearer \(YELP_API_KEY)", forHTTPHeaderField: "Authorization")
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
-//            print("API request: \(request)")
+            print("API request: \(request)")
             if let data = data {
                 do {
                     let result = try JSONDecoder().decode(APIResult.self, from: data)
 //                    self.annotation.coordinate = CLLocationCoordinate2D(latitude: result.businesses[0].coordinates!.latitude, longitude: result.businesses[0].coordinates!.longitude)
-//                    self.annotation.coordinate = CLLocationCoordinate2D(latitude: 37, longitude: 122)
                     self.yelpResults = [result]
                 }
                 catch {
